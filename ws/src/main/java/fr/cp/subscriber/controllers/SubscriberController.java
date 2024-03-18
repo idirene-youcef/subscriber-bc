@@ -1,7 +1,3 @@
-/*
- * Copyright (c) 2024.
- * Hadjersi Mohamed
- */
 
 package fr.cp.subscriber.controllers;
 
@@ -28,7 +24,7 @@ import java.util.List;
 @AllArgsConstructor
 @Validated
 @RequestMapping("api/v1/subscribers")
-public class SubscriberController implements SubscriberControllerInterface {
+public class SubscriberController {
 
     private SubscriberService subscriberService;
 
@@ -37,7 +33,8 @@ public class SubscriberController implements SubscriberControllerInterface {
             description = "Api to create a new subscriber")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "400", description = "Incorrect request"),
-            @ApiResponse(responseCode = "201", description = "successful operation, Subscriber created")
+            @ApiResponse(responseCode = "201", description = "successful operation, Subscriber created"),
+            @ApiResponse(responseCode = "409", description = "Conflict, a subscriber with the same name and email already exists")
     })
     @PostMapping("/create")
     @Validated(SubscriberReq.CreateValidation.class)
@@ -64,7 +61,7 @@ public class SubscriberController implements SubscriberControllerInterface {
 
     @Operation(
             summary = "deactivate a subscriber",
-            description = "Api to deactivate a subscriber")
+            description = "API to deactivate a subscriber by setting the 'isActive' field to 'false'.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "404", description = "Subscriber not found"),
             @ApiResponse(responseCode = "200", description = "successful operation, Subscriber deactivated")
@@ -75,7 +72,12 @@ public class SubscriberController implements SubscriberControllerInterface {
         return new ResponseEntity<>("Subscriber deactivated", HttpStatus.OK);
 
     }
-
+    @Operation(
+            summary = "Find subscribers",
+            description = "API to search for subscribers based on specified criteria. Returns a list of subscribers matching the criteria.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "successful operation, Subscriber deactivated")
+    })
     @GetMapping("/search")
     public ResponseEntity<List<SubscriberResp>> searchSubscriber(@RequestParam(required = false) String fName,
                                                                  @RequestParam(required = false) String lName,

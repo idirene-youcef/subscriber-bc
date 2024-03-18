@@ -1,7 +1,3 @@
-/*
- * Copyright (c) 2024.
- * Hadjersi Mohamed
- */
 
 package fr.cp.subscriber.services;
 

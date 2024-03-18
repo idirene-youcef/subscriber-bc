@@ -8,13 +8,12 @@ import fr.cp.subscriber.mapper.Mapper;
 import fr.cp.subscriber.mapper.MapperPatten;
 import fr.cp.subscriber.repositories.SubscriberRepository;
 import fr.cp.subscriber.services.SubscriberServiceImpl;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-
-import jakarta.persistence.EntityNotFoundException;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -92,7 +91,8 @@ class SubscriberServiceImplTest {
 
     @Test
     void testUpdateSubscriber_ShouldThrowExceptionWhenIdIsNull() {
-        SubscriberReq request = new SubscriberReq(null, "test", "test", "test.test@example.com", "123456789", true);;
+        SubscriberReq request = new SubscriberReq(null, "test", "test", "test.test@example.com", "123456789", true);
+        ;
 
         assertThrows(IllegalArgumentException.class, () -> {
             subscriberService.update(request);
@@ -130,16 +130,18 @@ class SubscriberServiceImplTest {
         verifyNoMoreInteractions(subscriberRepository);
     }
 
+    public LocalDateTime creationDate = LocalDateTime.of(2022, 3, 14, 10, 30);
+    public LocalDateTime modificationDate = LocalDateTime.of(2022, 3, 15, 15, 45);
+
     private Subscriber getSubscriberEntity() {
-        return new Subscriber(1L, "test", "test", "test.test@example.com", "123456789", true);
+        return new Subscriber(1L, "test", "test", "test.test@example.com", "123456789", true, creationDate, modificationDate);
     }
 
     private SubscriberReq getSubscriberRequest() {
         return new SubscriberReq(1L, "test", "test", "test.test@example.com", "123456789", true);
     }
-    private static SubscriberResp getSubscriberResp() {
-        LocalDateTime creationDate = LocalDateTime.of(2022, 3, 14, 10, 30);
-        LocalDateTime modificationDate = LocalDateTime.of(2022, 3, 15, 15, 45);
+
+    private SubscriberResp getSubscriberResp() {
 
         return new SubscriberResp(1L, "test", "test", "test.test@example.com",
                 "123456789", true, creationDate, modificationDate);

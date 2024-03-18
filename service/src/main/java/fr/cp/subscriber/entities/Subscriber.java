@@ -1,7 +1,3 @@
-/*
- * Copyright (c) 2024.
- * Hadjersi Mohamed
- */
 package fr.cp.subscriber.entities;
 
 import jakarta.persistence.*;
@@ -33,8 +29,4 @@ public class Subscriber {
   private LocalDateTime creationDate;
   @LastModifiedDate
   private LocalDateTime modificationDate;
-
-
-  public Subscriber(long l, String john, String doe, String mail, String number, boolean b) {
-  }
 }

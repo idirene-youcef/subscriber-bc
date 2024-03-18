@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2024.
- * Hadjersi Mohamed
- */
-
 package fr.cp.subscriber.repositories;
 
 import fr.cp.subscriber.dto.SubscriberReq;
